@@ -44,8 +44,11 @@ for(i in 1:length(strains)){
   #extract non selective values
   raw_non_selective <- as.numeric(data[-(1:sep), i][[1]])
   
-  #calculate non selective based on dilution factor
+  #calculate non selective based on dilution factor (placeholder till correct calculation implemented)
   non_selective <- raw_non_selective * dilution_factor
+  #calculate average of non_selective values NOT IMPLEMENTED
+  
+  #match length of nonselective to selective values
   print(selective)
   print(non_selective)
   print(strains[i])
