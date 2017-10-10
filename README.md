@@ -5,5 +5,5 @@ Some scripting to make it easier to read data into rSalvador and analyze fluctua
 make sure you have the following installed:
 
 R
-rSalvador
+Rpackages rSalvador, tidyverse, cowplot
 
