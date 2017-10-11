@@ -3,7 +3,7 @@ library(rsalvador)
 library(tidyverse)
 library(cowplot)
 
-#setwd("~/Dropbox/code/fluc_test_script/")
+#setwd("~/Dropbox/code/fluc_test_script/fluxing/")
 
 #confidence interval function
 confind <- function(x, y){
@@ -20,12 +20,13 @@ golden <- function(x, y){
 }
 
 
-calculateMutRate <- function(filename, dilution_factor, out_pfx ){
+calculateMutRate <- function(filename, vol_plated = 50, dilution_factor = 2e-6, original_volume = 200, out_pfx ){
 
 
   #read in file specified. Must be in same directory
-  data <- read_csv("test_input.csv") 
-
+  #for testing
+  #data <- read_csv("example_dataset_2.csv") 
+  data <- read_csv(filename)
   #extract sample names
   strains <- colnames(data)
   
@@ -40,12 +41,13 @@ for(i in 1:length(strains)){
   
   #extract selective values
   selective <- as.numeric(data[1:sep-1, i][[1]])
-  
+  selective <- selective[!is.na(selective)]
   #extract non selective values
   raw_non_selective <- as.numeric(data[-(1:sep), i][[1]])
+  per_non_selective <- ((mean(raw_non_selective) / vol_plated) / dilution_factor ) * original_volume
   
   #calculate non selective based on dilution factor (placeholder till correct calculation implemented)
-  non_selective <- raw_non_selective * dilution_factor
+  non_selective <- rep(per_non_selective, length(selective))
   #calculate average of non_selective values NOT IMPLEMENTED
   
   #match length of nonselective to selective values
@@ -75,8 +77,10 @@ save_plot(paste0(out_pfx, "_chart.pdf"), plot)
 
 }
 
+
+#for testing
+#calculateMutRate("example_dataset_2.csv", out_pfx = "test2")
+##pass arguments to function
 ##parse command line arguments
 Args <- commandArgs(TRUE)
-
-##pass arguments to function
 calculateMutRate(Args[1], as.numeric(Args[2]), Args[3])
