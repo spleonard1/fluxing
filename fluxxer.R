@@ -70,10 +70,8 @@ for(i in 1:length(strains)){
   per_non_selective <- ((mean(raw_non_selective, na.rm = TRUE) / vol_plated) / dilution_factor ) * original_volume
   
   #calculate non selective based on dilution factor (placeholder till correct calculation implemented)
-  non_selective <- rep(per_non_selective, length(selective))
-  #calculate average of non_selective values NOT IMPLEMENTED
-  
   #match length of nonselective to selective values
+  non_selective <- rep(per_non_selective, length(selective))
   print(selective)
   print(non_selective)
   print(strains[i])
