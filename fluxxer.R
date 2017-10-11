@@ -4,8 +4,6 @@ library(tidyverse)
 library(cowplot)
 library(optparse)
 
-#setwd("~/Dropbox/code/fluc_test_script/fluxing/")
-
 option_list = list(
   make_option(c("-i", "--input"), type="character", default=NULL, 
               help="input file name", metavar="character"),
